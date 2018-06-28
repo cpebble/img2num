@@ -13,9 +13,10 @@ class imgRecognizer():
 
         if self.debug:
             print(f"Model loaded with input shape: {self.model.input_shape}")
+            self.model.summary()
 
     def guess(self, imgData):
-        predict = self.model.predict(imgData, verbose=0)
+        predict = self.model.predict(imgData, verbose=1)
 
         highest_index = np.argmax(predict)
         prediction = self.outputs[highest_index]
@@ -31,3 +32,4 @@ class imgRecognizer():
         self.model.load_weights(self.filename)
         if self.debug:
             print("Model successfully compiled")
+        self.model._make_predict_function()
